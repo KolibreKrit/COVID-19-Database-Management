@@ -1,9 +1,9 @@
 package cs505finaltemplate.Topics;
-
+import java.util.List;
+import cs505finaltemplate.Topics.ZipInfo;
 public class ZipData {
 
-    public String zip_code;
-    public int count;
+    public List<ZipInfo> event;
 
     public ZipData() {
 
