@@ -20,7 +20,7 @@ public class Launcher {
     public static String inputStreamName;
     public static CEPEngine cepEngine;
     public static TopicConnector topicConnector;
-    public static final int WEB_PORT = 8082;
+    public static final int WEB_PORT = 9003;
 
     public static String lastCEPOutput = "{}";
 
@@ -47,6 +47,7 @@ public class Launcher {
         String queryString = " " +
                 "from testInStream#window.timeBatch(5 sec) " +
                 "select zip_code, count() as count " +
+                "group by zip_code " +
                 "insert into testOutStream; ";
 
         cepEngine.createCEP(inputStreamName, outputStreamName, inputStreamAttributesString, outputStreamAttributesString, queryString);
@@ -56,10 +57,10 @@ public class Launcher {
 
         //start message collector
         Map<String,String> message_config = new HashMap<>();
-        message_config.put("hostname",""); //Fill config for your team in
-        message_config.put("username","");
-        message_config.put("password","");
-        message_config.put("virtualhost","");
+        message_config.put("hostname","localhost"); //Fill config for your team in
+        message_config.put("username","guest");
+        message_config.put("password","guest");
+        message_config.put("virtualhost","/");
 
         topicConnector = new TopicConnector(message_config);
         topicConnector.connect();
