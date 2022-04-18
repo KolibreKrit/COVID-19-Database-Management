@@ -2,6 +2,7 @@ package cs505finaltemplate;
 
 import cs505finaltemplate.CEP.CEPEngine;
 import cs505finaltemplate.Topics.TopicConnector;
+import cs505finaltemplate.Topics.ZipData;
 import cs505finaltemplate.graphDB.GraphDBEngine;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -11,6 +12,8 @@ import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,6 +26,8 @@ public class Launcher {
     public static final int WEB_PORT = 9003;
 
     public static String lastCEPOutput = "{}";
+    public static List<String> alerts = new LinkedList<>();
+    public static List<ZipData> CEPList = new LinkedList<>();
 
     public static void main(String[] args) throws IOException {
 
