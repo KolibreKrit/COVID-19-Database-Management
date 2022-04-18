@@ -96,9 +96,11 @@ public class API {
 
             //generate a response
             Map<String,String> responseMap = new HashMap<>();
-            String[] sstr = Launcher.lastCEPOutput.split(":");
+            String[] sstr = Launcher.lastCEPOutput.split(":", -1);
+            int i = 0;
             for (String zipcode : sstr) {
-                responseMap.put("zipcode", zipcode);
+                responseMap.put("zipcode" + String.valueOf(i), zipcode);
+                i++;
             }
             responseString = gson.toJson(responseMap);
 
