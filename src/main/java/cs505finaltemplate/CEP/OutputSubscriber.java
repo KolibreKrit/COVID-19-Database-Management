@@ -13,6 +13,7 @@ import java.util.List;
 public class OutputSubscriber implements InMemoryBroker.Subscriber {
 
     private String topic;
+    private Gson gson;
 
     public OutputSubscriber(String topic, String streamName) {
         this.topic = topic;
