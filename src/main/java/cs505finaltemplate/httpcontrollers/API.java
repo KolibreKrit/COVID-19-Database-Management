@@ -31,16 +31,17 @@ public class API {
     @GET
     @Path("/getteam")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getteam() {
+    public Response getTeam() {
         String responseString = "{}";
         try {
 
             Map<String,String> responseMap = new HashMap<>();
             if(Launcher.cepEngine != null) {
 
-                    responseMap.put("team_name", "Oceans");
-                    responseMap.put("Team_members_sids", "[91222301]");
-                    responseMap.put("app_status_code","0");
+                responseMap.put("app_status_code","0");
+                responseMap.put("Team_members_sids", "[91222301]");
+                responseMap.put("team_name", "Oceans");
+
 
             } else {
                 responseMap.put("success", Boolean.FALSE.toString());
@@ -65,7 +66,7 @@ public class API {
     @GET
     @Path("/getlastcep")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAccessCount(@HeaderParam("X-Auth-API-Key") String authKey) {
+    public Response getLastCEP(@HeaderParam("X-Auth-API-Key") String authKey) {
         String responseString = "{}";
         try {
 
@@ -86,5 +87,30 @@ public class API {
         return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
     }
 
+    @GET
+    @Path("/zipalertlist")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response zipAlertList(@HeaderParam("X-Auth-API-Key") String authKey) {
+        String responseString = "{}";
+        try {
 
+            //generate a response
+            Map<String,String> responseMap = new HashMap<>();
+            String[] sstr = Launcher.lastCEPOutput.split(":");
+            for (String zipcode : sstr) {
+                responseMap.put("zipcode", zipcode);
+            }
+            responseString = gson.toJson(responseMap);
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
 }
