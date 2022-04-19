@@ -62,6 +62,7 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
                             System.out.println(unit.split("}")[0]);
                         }
                     }
+                    i++;
                 }
             }
             //String[] outval = sstr[2].split("}");
