@@ -52,7 +52,7 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
             String[] zipCodes = String.valueOf(msg).split("zip_code\":");
             int i = 0;
             for (String zipCode : zipCodes) {
-                String[] sstr = zipCode.split("count\":\"");
+                String[] sstr = zipCode.split("count\":");
                 for (String unit : sstr) {
 //                    if (i != 0) {
 //                        if (i % 2 == 1) {
