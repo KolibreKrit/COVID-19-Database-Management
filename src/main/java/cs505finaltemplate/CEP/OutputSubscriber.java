@@ -32,7 +32,7 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
 
             //You will need to parse output and do other logic,
             //but this sticks the last output value in main
-            List<ZipData> incomingList = gson.fromJson(msg, typeListZipData);
+            List<ZipData> incomingList = gson.fromJson(String.valueOf(msg), typeListZipData);
             Launcher.alerts = new LinkedList<>();
             for (ZipData zipData : incomingList) {
                 for (ZipData prevData : Launcher.CEPList) {
