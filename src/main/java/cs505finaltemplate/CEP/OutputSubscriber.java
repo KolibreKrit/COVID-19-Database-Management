@@ -9,6 +9,7 @@ import cs505finaltemplate.Topics.ZipInfo;
 import io.siddhi.core.util.transport.InMemoryBroker;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,11 +34,15 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
             //You will need to parse output and do other logic,
             //but this sticks the last output value in main
             List<ZipData> incomingList = gson.fromJson(String.valueOf(msg), typeListZipData);
-            Launcher.alerts = new LinkedList<>();
+            Launcher.alerts = new ArrayList<>();
             for (ZipData zipData : incomingList) {
                 for (ZipData prevData : Launcher.CEPList) {
-                    if (zipData.event.zip_code.equals(prevData.event.zip_code)) {
-                        Launcher.alerts.add(zipData.event.zip_code);
+                    for (ZipInfo event : zipData.events) {
+                        for (ZipInfo prevEvent : prevData.events) {
+                            if (event.zip_code.equals(prevEvent.zip_code)) {
+                                Launcher.alerts.add(event.zip_code);
+                            }
+                        }
                     }
                 }
             }
