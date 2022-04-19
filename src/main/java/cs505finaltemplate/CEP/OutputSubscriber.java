@@ -36,12 +36,8 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
             Launcher.alerts = new LinkedList<>();
             for (ZipData zipData : incomingList) {
                 for (ZipData prevData : Launcher.CEPList) {
-                    for (ZipInfo event : zipData.event) {
-                        for (ZipInfo prev_event : prevData.event) {
-                            if (event.zip_code.equals(prev_event.zip_code)) {
-                                Launcher.alerts.add(event.zip_code);
-                            }
-                        }
+                    if (zipData.event.zip_code.equals(prevData.prev_event.zip_code)) {
+                        Launcher.alerts.add(event.zip_code);
                     }
                 }
             }

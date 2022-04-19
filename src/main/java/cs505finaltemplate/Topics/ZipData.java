@@ -3,7 +3,7 @@ import java.util.List;
 import cs505finaltemplate.Topics.ZipInfo;
 public class ZipData {
 
-    public List<ZipInfo> event;
+    public ZipInfo event;
 
     public ZipData() {
 
