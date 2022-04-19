@@ -56,7 +56,7 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
                 for (String unit : sstr) {
                     if (i != 0) {
                         if (i % 2 == 1) {
-                            System.out.println(unit.split("\"")[1]);
+                            System.out.println(unit.split("\"")[0]);
                         }
                         else {
                             System.out.println(unit.split("}")[0]);
