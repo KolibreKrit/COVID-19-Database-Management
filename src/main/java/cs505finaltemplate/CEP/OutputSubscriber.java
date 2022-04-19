@@ -54,18 +54,15 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
             for (String zipCode : zipCodes) {
                 String[] sstr = zipCode.split("count\":\"");
                 for (String unit : sstr) {
-                    if (i != 0) {
-                        if (i % 2 == 1) {
-                            System.out.println(unit.split("\"")[0]);
-                        }
-                        else {
-                            System.out.println(unit.split("}")[0]);
-                        }
-//                        String[] outval = unit.split("\"");
-//                        for (String str : outval) {
-//                            System.out.println(str);
+//                    if (i != 0) {
+//                        if (i % 2 == 1) {
+//                            System.out.println(unit.split("\"")[0]);
 //                        }
-                    }
+//                        else {
+//                            System.out.println(unit.split("}")[0]);
+//                        }
+//                    }
+                    System.out.println(unit + " " + i);
                     i += 1;
                 }
             }
