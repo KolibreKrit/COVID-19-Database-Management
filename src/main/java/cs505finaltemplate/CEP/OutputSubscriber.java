@@ -50,21 +50,21 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
             Launcher.lastCEPOutput = String.valueOf(msg);
 
             String[] zipCodes = String.valueOf(msg).split("zip_code\":");
+            int i = 0;
             for (String zipCode : zipCodes) {
-                String[] sstr = zipCode.split("count\":");
-                int i = 0;
+                String[] sstr = zipCode.split("count\":\"");
                 for (String unit : sstr) {
                     if (i != 0) {
-//                        if (i % 2 == 0) {
-//                            System.out.println(unit.split("\"")[0]);
-//                        }
-//                        else {
-//                            System.out.println(unit.split("}")[0]);
-//                        }
-                        String[] outval = unit.split("\"");
-                        for (String str : outval) {
-                            System.out.println(str);
+                        if (i % 2 == 1) {
+                            System.out.println(unit.split("\"")[0]);
                         }
+                        else {
+                            System.out.println(unit.split("}")[0]);
+                        }
+//                        String[] outval = unit.split("\"");
+//                        for (String str : outval) {
+//                            System.out.println(str);
+//                        }
                     }
                     i += 1;
                 }
