@@ -71,9 +71,10 @@ public class API {
         try {
 
             //generate a response
-            Map<String,String> responseMap = new HashMap<>();
-            responseMap.put("lastoutput",Launcher.lastCEPOutput);
-            responseString = gson.toJson(responseMap);
+//            Map<String,String> responseMap = new HashMap<>();
+//            responseMap.put("lastoutput",Launcher.lastCEPOutput);
+//            responseString = gson.toJson(responseMap);
+            responseString = gson.toJson(Launcher.CEPList);
 
         } catch (Exception ex) {
 

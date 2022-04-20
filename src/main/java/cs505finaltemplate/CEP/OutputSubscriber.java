@@ -10,6 +10,7 @@ import io.siddhi.core.util.transport.InMemoryBroker;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,18 +49,19 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
 //            }
 //            Launcher.CEPList = incomingList;
             Launcher.lastCEPOutput = String.valueOf(msg);
-
+            Launcher.CEPList = new HashMap<>();
             String[] zipCodes = String.valueOf(msg).split("zip_code\":\"");
             int i = 0;
+            String zip = "";
             for (String zipCode : zipCodes) {
                 String[] sstr = zipCode.split("count\":");
                 for (String unit : sstr) {
                     if (i != 0) {
                         if (i % 2 == 1) {
-                            System.out.println(unit.split("\"")[0]);
+                            zip = unit.split("\"")[0];
                         }
                         else {
-                            System.out.println(unit.split("}")[0]);
+                            Launcher.CEPList.put(zip, Integer.parseInt(unit.split("}")[0]));
                         }
                     }
                     i += 1;
