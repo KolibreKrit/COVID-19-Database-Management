@@ -94,7 +94,7 @@ public class GraphDBEngine {
     }
 
     public boolean isPatient(String patient_mrn) {
-        String query = "select from patient where patient_mrn = " + patient_mrn;
+        String query = "select from patient where patient_mrn = \"" + patient_mrn + "\"";
         OResultSet rs = db.query(query);
 
         System.out.println("Name: " + db.getName());
@@ -111,7 +111,7 @@ public class GraphDBEngine {
     }
 
     public OVertex getPatient(String patient_mrn) {
-        String query = "select from patient where patient_mrn = " + patient_mrn;
+        String query = "select from patient where patient_mrn = \"" + patient_mrn + "\"";
         OResultSet rs = db.query(query);
 
         OVertex patient = null;
