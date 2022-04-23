@@ -191,7 +191,7 @@ public class API {
         String responseString = "{}";
         try {
             //generate a response
-            Map<String,String> responseMap = new HashMap<>();
+            Map<String, String> responseMap = new HashMap<>();
             responseMap.put("contact_list", mrn);
             responseString = gson.toJson(responseMap);
 
@@ -205,10 +205,5 @@ public class API {
             return Response.status(500).entity(exceptionAsString).build();
         }
         return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
-    }
-
-    @Get
-    public String getMRN(@PathParam("mrn") String mrn) {
-
     }
 }
