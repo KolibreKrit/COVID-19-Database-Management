@@ -99,7 +99,7 @@ public class GraphDBEngine {
 
         while (rs.hasNext()) {
             OResult item = rs.next();
-            if (OResult.isVertex()) {
+            if (item.isVertex()) {
                 System.out.println("found patient: " + item.getProperty("patient_mrn"));
                 rs.close();
                 return true;
@@ -118,7 +118,7 @@ public class GraphDBEngine {
 
         while (rs.hasNext()) {
             item = rs.next();
-            if (OResult.isVertex()) {
+            if (item.isVertex()) {
                 patient = item;
                 break;
             }
