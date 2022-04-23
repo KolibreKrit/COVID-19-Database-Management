@@ -95,18 +95,18 @@ public class GraphDBEngine {
 
     public boolean isPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = " + patient_mrn;
-        System.out.println("Name : " + db.getName());
-        OResultSet rs = db.command(query);
+//        System.out.println("Name : " + db.getName());
+//        OResultSet rs = db.command(query);
 
-        while (rs.hasNext()) {
-            OResult item = rs.next();
-            if (item.isVertex()) {
-                System.out.println("found patient: " + item.getProperty("patient_mrn"));
-                rs.close();
-                return true;
-            }
-        }
-        rs.close();
+//        while (rs.hasNext()) {
+//            OResult item = rs.next();
+//            if (item.isVertex()) {
+//                System.out.println("found patient: " + item.getProperty("patient_mrn"));
+//                rs.close();
+//                return true;
+//            }
+//        }
+//        rs.close();
         return false;
     }
 
