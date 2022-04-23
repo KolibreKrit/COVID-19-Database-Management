@@ -34,7 +34,6 @@ public class Launcher {
         //READ CLASS COMMENTS BEFORE USING
         graphDBEngine = new GraphDBEngine();
 
-        graphDBEngine.clearDB();
 //        cepEngine = new CEPEngine();
 //
 //        System.out.println("Starting CEP...");
@@ -68,6 +67,8 @@ public class Launcher {
         topicConnector = new TopicConnector(message_config);
         topicConnector.connect();
         //end message collector
+
+        graphDBEngine.clearDB();
 
         //Embedded HTTP initialization
 //        startServer();
