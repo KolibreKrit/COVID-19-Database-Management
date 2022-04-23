@@ -25,7 +25,7 @@ public class GraphDBEngine {
         //use the orientdb dashboard to create a new database
         //see class notes for how to use the dashboard
 
-        clearDB();
+//        clearDB();
 
         //create classes
         OClass patient = db.getClass("patient");

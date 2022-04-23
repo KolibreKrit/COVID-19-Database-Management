@@ -33,6 +33,7 @@ public class Launcher {
 
         //READ CLASS COMMENTS BEFORE USING
         graphDBEngine = new GraphDBEngine();
+        graphDBEngine.clearDB();
 
 //        cepEngine = new CEPEngine();
 //

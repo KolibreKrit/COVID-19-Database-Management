@@ -7,9 +7,9 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import cs505finaltemplate.Launcher;
+import cs505finaltemplate.graphDB.GraphDBEngine;
 import io.siddhi.query.api.expression.condition.In;
 import com.orientechnologies.orient.core.record.OVertex;
-import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class TopicConnector {
 
+    public static GraphDBEngine graphDBEngine;
     private Gson gson;
 
     final Type typeOfListMap = new TypeToken<List<Map<String,String>>>(){}.getType();
@@ -30,7 +31,7 @@ public class TopicConnector {
     public TopicConnector(Map<String,String> config) {
         gson = new Gson();
         this.config = config;
-        ODatabaseRecordThreadLocal.instance().set(Launcher.graphDBEngine.db);
+        graphDBEngine = new GraphDBEngine();
     }
 
     public void connect() {
@@ -104,7 +105,7 @@ public class TopicConnector {
                     System.out.println("\tcontact_list = " + testingData.contact_list);
                     System.out.println("\tevent_list = " + testingData.event_list);
                      */
-                    Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+                    graphDBEngine.createPatient(testingData.patient_mrn);
 //                    if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
 //                        OVertex patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
 //                        for (String contact : testingData.contact_list) {
