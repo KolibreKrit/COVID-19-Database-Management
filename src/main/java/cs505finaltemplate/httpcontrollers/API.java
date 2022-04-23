@@ -76,10 +76,10 @@ public class API {
             Map<String,String> responseMap = new HashMap<>();
             Launcher.alerts = new ArrayList<>();
             Launcher.CEPList = new HashMap<>();
-//            if (Launcher.graphDBEngine.db != null) {
-//                String query = "DELETE VERTEX FROM patient";
-//                Launcher.graphDBEngine.db.command(query);
-//            }
+            if (Launcher.graphDBEngine.db != null) {
+                String query = "DELETE VERTEX FROM patient";
+                Launcher.graphDBEngine.db.command(query);
+            }
             responseMap.put("reset_status_code", String.valueOf(success));
 
             responseString = gson.toJson(responseMap);
