@@ -2,6 +2,7 @@ package cs505finaltemplate.httpcontrollers;
 
 import com.google.gson.Gson;
 import cs505finaltemplate.Launcher;
+import jdk.nashorn.internal.objects.annotations.Getter;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -74,10 +75,10 @@ public class API {
             Map<String,String> responseMap = new HashMap<>();
             Launcher.alerts = new ArrayList<>();
             Launcher.CEPList = new HashMap<>();
-            if (Launcher.graphDBEngine.db != null) {
-                String query = "DELETE VERTEX FROM patient";
-                Launcher.graphDBEngine.db.command(query);
-            }
+//            if (Launcher.graphDBEngine.db != null) {
+//                String query = "DELETE VERTEX FROM patient";
+//                Launcher.graphDBEngine.db.command(query);
+//            }
             responseMap.put("reset_status_code", String.valueOf(success));
 
             responseString = gson.toJson(responseMap);
@@ -181,5 +182,33 @@ public class API {
             return Response.status(500).entity(exceptionAsString).build();
         }
         return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/getconfirmedcontacts/{mrn}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getConfirmedContacts(@HeaderParam("X-Auth-API-Key") String authKey, @PathParam("mrn") String mrn) {
+        String responseString = "{}";
+        try {
+            //generate a response
+            Map<String,String> responseMap = new HashMap<>();
+            responseMap.put("contact_list", mrn);
+            responseString = gson.toJson(responseMap);
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @Get
+    public String getMRN(@PathParam("mrn") String mrn) {
+
     }
 }
