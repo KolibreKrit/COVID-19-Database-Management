@@ -59,7 +59,7 @@ public class GraphDBEngine {
         OEdge edge3 = patient_3.addEdge(patient_2, "contact_with");
         edge3.save();
 
-        getContacts(db, "mrn_0");
+        getContacts("mrn_0");
 
 //        db.close();
 //        orient.close();
