@@ -43,23 +43,23 @@ public class GraphDBEngine {
             db.createEdgeClass("contact_with");
         }
 
-//        OVertex patient_0 = createPatient(db, "mrn_0");
-//        OVertex patient_1 = createPatient(db, "mrn_1");
-//        OVertex patient_2 = createPatient(db, "mrn_2");
-//        OVertex patient_3 = createPatient(db, "mrn_3");
-//
-//        //patient 0 in contact with patient 1
-//        OEdge edge1 = patient_0.addEdge(patient_1, "contact_with");
-//        edge1.save();
-//        //patient 2 in contact with patient 0
-//        OEdge edge2 = patient_2.addEdge(patient_0, "contact_with");
-//        edge2.save();
-//
-//        //you should not see patient_3 when trying to find contacts of patient 0
-//        OEdge edge3 = patient_3.addEdge(patient_2, "contact_with");
-//        edge3.save();
+        OVertex patient_0 = createPatient(db, "mrn_0");
+        OVertex patient_1 = createPatient(db, "mrn_1");
+        OVertex patient_2 = createPatient(db, "mrn_2");
+        OVertex patient_3 = createPatient(db, "mrn_3");
 
-//        getContacts(db, "mrn_0");
+        //patient 0 in contact with patient 1
+        OEdge edge1 = patient_0.addEdge(patient_1, "contact_with");
+        edge1.save();
+        //patient 2 in contact with patient 0
+        OEdge edge2 = patient_2.addEdge(patient_0, "contact_with");
+        edge2.save();
+
+        //you should not see patient_3 when trying to find contacts of patient 0
+        OEdge edge3 = patient_3.addEdge(patient_2, "contact_with");
+        edge3.save();
+
+        getContacts(db, "mrn_0");
 
 //        db.close();
 //        orient.close();
