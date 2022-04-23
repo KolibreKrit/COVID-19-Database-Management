@@ -95,6 +95,7 @@ public class GraphDBEngine {
 
     public boolean isPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = " + patient_mrn;
+        System.out.println("Name : " + db.getName());
         OResultSet rs = db.command(query);
 
         while (rs.hasNext()) {
