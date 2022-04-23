@@ -30,7 +30,7 @@ public class TopicConnector {
     public TopicConnector(Map<String,String> config) {
         gson = new Gson();
         this.config = config;
-        instance().set(Launcher.graphDBEngine.db);
+        ODatabaseRecordThreadLocal.instance().set(Launcher.graphDBEngine.db);
     }
 
     public void connect() {
