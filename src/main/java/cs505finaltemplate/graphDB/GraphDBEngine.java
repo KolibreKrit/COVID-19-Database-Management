@@ -93,24 +93,23 @@ public class GraphDBEngine {
         return contacts;
     }
 
-    public boolean isPatient(String patient_mrn) {
+    public static boolean isPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = " + patient_mrn;
-//        System.out.println("Name : " + db.getName());
-//        OResultSet rs = db.command(query);
+        OResultSet rs = db.command(query);
 
-//        while (rs.hasNext()) {
-//            OResult item = rs.next();
-//            if (item.isVertex()) {
-//                System.out.println("found patient: " + item.getProperty("patient_mrn"));
-//                rs.close();
-//                return true;
-//            }
-//        }
-//        rs.close();
+        while (rs.hasNext()) {
+            OResult item = rs.next();
+            if (item.isVertex()) {
+                System.out.println("found patient: " + item.getProperty("patient_mrn"));
+                rs.close();
+                return true;
+            }
+        }
+        rs.close();
         return false;
     }
 
-    public OVertex getPatient(String patient_mrn) {
+    public static OVertex getPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = " + patient_mrn;
         OResultSet rs = db.command(query);
 
