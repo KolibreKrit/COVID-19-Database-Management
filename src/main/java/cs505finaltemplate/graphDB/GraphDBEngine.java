@@ -118,7 +118,7 @@ public class GraphDBEngine {
         while (rs.hasNext()) {
             OResult item = rs.next();
             if (item.isVertex()) {
-                patient = item;
+                patient = item.getVertex();
                 break;
             }
         }
