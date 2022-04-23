@@ -93,10 +93,11 @@ public class GraphDBEngine {
         return contacts;
     }
 
-    public static boolean isPatient(String patient_mrn) {
+    public boolean isPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = " + patient_mrn;
-        OResultSet rs = db.command(query);
+        OResultSet rs = db.execute(query);
 
+        System.out.println("Name: " + db.getName());
         while (rs.hasNext()) {
             OResult item = rs.next();
             if (item.isVertex()) {
@@ -109,9 +110,9 @@ public class GraphDBEngine {
         return false;
     }
 
-    public static OVertex getPatient(String patient_mrn) {
+    public OVertex getPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = " + patient_mrn;
-        OResultSet rs = db.command(query);
+        OResultSet rs = db.execute(query);
 
         OVertex patient = null;
 
