@@ -126,7 +126,7 @@ public class GraphDBEngine {
         return patient;
     }
 
-    private void clearDB(ODatabaseSession db) {
+    public void clearDB() {
 
         String query = "DELETE VERTEX FROM patient";
         db.command(query);

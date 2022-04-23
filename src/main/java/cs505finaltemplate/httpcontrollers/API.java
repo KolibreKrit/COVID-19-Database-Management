@@ -72,13 +72,12 @@ public class API {
     public Response reset() {
         String responseString = "{}";
         try {
-            int success = 0;
+            int success = 1;
             Map<String,String> responseMap = new HashMap<>();
             Launcher.alerts = new ArrayList<>();
             Launcher.CEPList = new HashMap<>();
-            if (Launcher.graphDBEngine.db != null) {
-                String query = "DELETE VERTEX FROM patient";
-                Launcher.graphDBEngine.db.command(query);
+            if (Launcher.graphDBEngine != null) {
+                Launcher.graphDBEngine.clearDB();
             }
             responseMap.put("reset_status_code", String.valueOf(success));
 
