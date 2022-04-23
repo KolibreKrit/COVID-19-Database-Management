@@ -153,6 +153,21 @@ public class GraphDBEngine {
         return false;
     }
 
+    public boolean isEvent(String event_id) {
+        String query = "select from event where event_id = \"" + event_id + "\"";
+        OResultSet rs = db.query(query);
+
+        while (rs.hasNext()) {
+            OResult item = rs.next();
+            if (item.isVertex()) {
+                rs.close();
+                return true;
+            }
+        }
+        rs.close();
+        return false;
+    }
+
     public OVertex getPatient(String patient_mrn) {
         String query = "select from patient where patient_mrn = \"" + patient_mrn + "\"";
         OResultSet rs = db.query(query);
@@ -168,6 +183,23 @@ public class GraphDBEngine {
         }
         rs.close();
         return patient;
+    }
+
+    public OVertex getEvent(String event_id) {
+        String query = "select from event where event_id = \"" + event_id + "\"";
+        OResultSet rs = db.query(query);
+
+        OVertex event = null;
+
+        while (rs.hasNext()) {
+            OResult item = rs.next();
+            if (item.isVertex()) {
+                event = item.getVertex().get();
+                break;
+            }
+        }
+        rs.close();
+        return event;
     }
 
     public void clearDB() {

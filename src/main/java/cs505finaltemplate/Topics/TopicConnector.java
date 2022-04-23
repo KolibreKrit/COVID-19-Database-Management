@@ -105,26 +105,35 @@ public class TopicConnector {
                     System.out.println("\tevent_list = " + testingData.event_list);
                      */
 //                    Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+                    OVertex patient_1;
                     if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
-                        OVertex patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
-                        if (testingData.contact_list != null) {
-                            for (String contact : testingData.contact_list) {
-                                if (!Launcher.graphDBEngine.isPatient(contact)) {
-                                    OVertex patient_2 = Launcher.graphDBEngine.createPatient(contact);
-                                    Launcher.graphDBEngine.createContact(patient_1, patient_2);
-                                }
-                            }
-                        }
+                        patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
                     }
                     else {
-                        OVertex patient_1 = Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
-                        if (testingData.contact_list != null) {
-                            for (String contact : testingData.contact_list) {
-                                if (!Launcher.graphDBEngine.isPatient(contact)) {
-                                    OVertex patient_2 = Launcher.graphDBEngine.createPatient(contact);
-                                    Launcher.graphDBEngine.createContact(patient_1, patient_2);
-                                }
+                        patient_1 = Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+                    }
+                    if (testingData.contact_list != null) {
+                        for (String contact : testingData.contact_list) {
+                            OVertex patient_2;
+                            if (Launcher.graphDBEngine.isPatient(contact)) {
+                                patient_2 = Launcher.graphDBEngine.getPatient(contact);
                             }
+                            else {
+                                patient_2 = Launcher.graphDBEngine.createPatient(contact);
+                            }
+                            Launcher.graphDBEngine.createContact(patient_1, patient_2);
+                        }
+                    }
+                    if (testingData.event_list != null) {
+                        for (String event_id : testingData.event_list) {
+                            OVertex event;
+                            if (Launcher.graphDBEngine.isEvent(event_id)) {
+                                event = Launcher.graphDBEngine.getEvent(event_id);
+                            }
+                            else {
+                                event = Launcher.graphDBEngine.createEvent(event_id);
+                            }
+                            Launcher.graphDBEngine.createAttend(patient_1, event);
                         }
                     }
                 }
