@@ -74,6 +74,7 @@ public class API {
     public Response reset() {
         String responseString = "{}";
         try {
+            Launcher.graphDBEngine.db.activateOnCurrentThread();
             int success = 1;
             Map<String,String> responseMap = new HashMap<>();
             Launcher.alerts = new ArrayList<>();
@@ -193,6 +194,7 @@ public class API {
         String responseString = "{}";
         try {
             //generate a response
+            Launcher.graphDBEngine.db.activateOnCurrentThread();
             Map<String, String> responseMap = new HashMap<>();
             ArrayList<String> contacts = Launcher.graphDBEngine.getContacts(mrn);
             String contactList = "[";

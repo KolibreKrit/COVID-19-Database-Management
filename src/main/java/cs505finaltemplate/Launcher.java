@@ -70,7 +70,7 @@ public class Launcher {
         //end message collector
 
         //Embedded HTTP initialization
-//        startServer();
+        startServer();
 
         try {
             while (true) {
