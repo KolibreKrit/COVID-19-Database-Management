@@ -43,6 +43,20 @@ public class GraphDBEngine {
             db.createEdgeClass("contact_with");
         }
 
+        OClass event = db.getClass("event");
+        if (event == null) {
+            db.createVertexClass("event");
+        }
+
+        if (event.getProperty("event_id") == null) {
+            event.createProperty("event_id", OType.STRING);
+            event.createIndex("event_index", OClass.INDEX_TYPE.NOTUNIQUE, "event_id");
+        }
+
+        if (db.getClass("attend") == null) {
+            db.createEdgeClass("attend");
+        }
+
 //        OVertex patient_0 = createPatient("mrn_0");
 //        OVertex patient_1 = createPatient("mrn_1");
 //        OVertex patient_2 = createPatient("mrn_2");
@@ -65,6 +79,34 @@ public class GraphDBEngine {
 //        orient.close();
     }
 
+    public OVertex createEvent(String event_id) {
+        OVertex result = db.newVertex("event");
+        result.setProperty("event_id", event_id);
+        result.save();
+        return result;
+    }
+
+    public void createAttend(OVertex patient, OVertex event) {
+        OEdge edge = patient.addEdge(event, "attend");
+        edge.save();
+    }
+
+    public ArrayList<String> getEvents(String patient_mrn) {
+        ArrayList<String> events = new ArrayList<>();
+        String query = "TRAVERSE inE(), outE(), inV(), outV() " +
+                "FROM (select from patient where patient_mrn = ?) " +
+                "WHILE $depth <= 2";
+        OResultSet rs = db.query(query, patient_mrn);
+
+        while (rs.hasNext()) {
+            OResult item = rs.next();
+            if (item.getProperty("event_id") != null) {
+                events.add(item.getProperty("event_id"));
+            }
+        }
+        rs.close(); //REMEMBER TO ALWAYS CLOSE THE RESULT SET!!!
+        return events;
+    }
     public void createContact(OVertex patient_1, OVertex patient_2) {
         OEdge edge = patient_1.addEdge(patient_2, "contact_with");
         edge.save();
@@ -86,7 +128,9 @@ public class GraphDBEngine {
 
         while (rs.hasNext()) {
             OResult item = rs.next();
-            contacts.add(item.getProperty("patient_mrn"));
+            if (item.getProperty("patient_mrn") != null) {
+                contacts.add(item.getProperty("patient_mrn"));
+            }
 //            System.out.println("contact: " + item.getProperty("patient_mrn"));
         }
         rs.close(); //REMEMBER TO ALWAYS CLOSE THE RESULT SET!!!
