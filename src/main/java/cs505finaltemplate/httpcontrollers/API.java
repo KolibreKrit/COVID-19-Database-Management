@@ -64,6 +64,31 @@ public class API {
     }
 
     @GET
+    @Path("/reset")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response reset() {
+        String responseString = "{}";
+        try {
+            int success = 0;
+            Map<String,String> responseMap = new HashMap<>();
+            responseMap.put("reset_status_code", String.valueOf(success));
+
+            responseString = gson.toJson(responseMap);
+
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
     @Path("/getlastcep")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLastCEP(@HeaderParam("X-Auth-API-Key") String authKey) {
