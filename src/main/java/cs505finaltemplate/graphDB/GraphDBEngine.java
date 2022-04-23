@@ -113,18 +113,17 @@ public class GraphDBEngine {
         String query = "select from patient where patient_mrn = ?";
         OResultSet rs = db.query(query, patient_mrn);
 
-        Oresult item = null;
         OVertex patient = null;
 
         while (rs.hasNext()) {
-            item = rs.next();
+            OResult item = rs.next();
             if (item.isVertex()) {
                 patient = item;
                 break;
             }
         }
         rs.close();
-        return item;
+        return patient;
     }
 
     private void clearDB(ODatabaseSession db) {

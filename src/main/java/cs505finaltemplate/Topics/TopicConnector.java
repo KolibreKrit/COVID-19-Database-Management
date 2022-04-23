@@ -8,6 +8,7 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import cs505finaltemplate.Launcher;
 import io.siddhi.query.api.expression.condition.In;
+import com.orientechnologies.orient.core.record.OVertex;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
