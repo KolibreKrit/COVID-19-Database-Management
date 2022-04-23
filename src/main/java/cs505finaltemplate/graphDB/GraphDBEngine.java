@@ -13,6 +13,8 @@ import com.orientechnologies.orient.core.sql.executor.OResultSet;
 public class GraphDBEngine {
 
 
+    public OrientDB orient = new OrientDB("remote:localhost", OrientDBConfig.defaultConfig());
+    public ODatabaseSession db = orient.open("test", "root", "rootpwd");
     //!!! CODE HERE IS FOR EXAMPLE ONLY, YOU MUST CHECK AND MODIFY!!!
     public GraphDBEngine() {
 
@@ -21,10 +23,6 @@ public class GraphDBEngine {
 
         //use the orientdb dashboard to create a new database
         //see class notes for how to use the dashboard
-
-
-        OrientDB orient = new OrientDB("remote:localhost", OrientDBConfig.defaultConfig());
-        ODatabaseSession db = orient.open("test", "root", "rootpwd");
 
         clearDB(db);
 

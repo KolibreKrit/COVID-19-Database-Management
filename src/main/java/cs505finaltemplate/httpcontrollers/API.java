@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +72,10 @@ public class API {
         try {
             int success = 0;
             Map<String,String> responseMap = new HashMap<>();
+            Launcher.alerts = new ArrayList<>();
+            Launcher.CEPList = new HashMap<>();
+            String query = "DELETE VERTEX FROM patient";
+            Launcher.graphDBEngine.db.command(query);
             responseMap.put("reset_status_code", String.valueOf(success));
 
             responseString = gson.toJson(responseMap);
