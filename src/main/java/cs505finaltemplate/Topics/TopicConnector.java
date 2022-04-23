@@ -102,6 +102,7 @@ public class TopicConnector {
                     System.out.println("\tcontact_list = " + testingData.contact_list);
                     System.out.println("\tevent_list = " + testingData.event_list);
                      */
+                    System.out.println(testingData.patient_mrn);
                     if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
                         OVertex patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
                         for (String contact : testingData.contact_list) {
