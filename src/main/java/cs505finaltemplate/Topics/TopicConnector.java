@@ -9,6 +9,7 @@ import com.rabbitmq.client.DeliverCallback;
 import cs505finaltemplate.Launcher;
 import io.siddhi.query.api.expression.condition.In;
 import com.orientechnologies.orient.core.record.OVertex;
+import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class TopicConnector {
     public TopicConnector(Map<String,String> config) {
         gson = new Gson();
         this.config = config;
+        instance().set(Launcher.graphDBEngine.db);
     }
 
     public void connect() {
