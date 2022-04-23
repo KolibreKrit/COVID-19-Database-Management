@@ -19,7 +19,6 @@ import java.util.Map;
 
 public class TopicConnector {
 
-    public static GraphDBEngine graphDBEngine;
     private Gson gson;
 
     final Type typeOfListMap = new TypeToken<List<Map<String,String>>>(){}.getType();
@@ -31,7 +30,6 @@ public class TopicConnector {
     public TopicConnector(Map<String,String> config) {
         gson = new Gson();
         this.config = config;
-        graphDBEngine = new GraphDBEngine();
     }
 
     public void connect() {
@@ -75,7 +73,7 @@ public class TopicConnector {
             System.out.println(" [*] Paitent List Waiting for messages. To exit press CTRL+C");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                graphDBEngine = new GraphDBEngine();
+                GraphDBEngine graphDBEngine = new GraphDBEngine();
 
                 String message = new String(delivery.getBody(), "UTF-8");
 
@@ -106,7 +104,7 @@ public class TopicConnector {
                     System.out.println("\tcontact_list = " + testingData.contact_list);
                     System.out.println("\tevent_list = " + testingData.event_list);
                      */
-                    graphDBEngine.createPatient(testingData.patient_mrn);
+                    Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
 //                    if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
 //                        OVertex patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
 //                        for (String contact : testingData.contact_list) {
