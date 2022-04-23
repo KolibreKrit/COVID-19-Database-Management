@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class GraphDBEngine {
 
-    public OrientDB orient = new OrientDB("remote:localhost", OrientDBConfig.defaultConfig());
-    public ODatabaseSession db = orient.open("test", "root", "rootpwd");
+    public static OrientDB orient = new OrientDB("remote:localhost", OrientDBConfig.defaultConfig());
+    public static ODatabaseSession db = orient.open("test", "root", "rootpwd");
     //!!! CODE HERE IS FOR EXAMPLE ONLY, YOU MUST CHECK AND MODIFY!!!
     public GraphDBEngine() {
 
