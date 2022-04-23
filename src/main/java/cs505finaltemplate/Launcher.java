@@ -68,7 +68,7 @@ public class Launcher {
         topicConnector.connect();
         //end message collector
 
-        graphDBEngine.clearDB();
+        graphDBEngine.isPatient("asdkjb");
 
         //Embedded HTTP initialization
 //        startServer();
