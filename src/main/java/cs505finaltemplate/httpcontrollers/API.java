@@ -222,4 +222,40 @@ public class API {
         }
         return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
     }
+
+    @GET
+    @Path("/getpossiblecontacts/{mrn}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPossibleContacts(@HeaderParam("X-Auth-API-Key") String authKey, @PathParam("mrn") String mrn) {
+        String responseString = "{}";
+        try {
+            //generate a response
+            Launcher.graphDBEngine.db.activateOnCurrentThread();
+            Map<String, String> responseMap = new HashMap<>();
+            ArrayList<String> events = Launcher.graphDBEngine.getEvents(mrn);
+            String eventList = "[";
+            int i = 1;
+            int eventLen = events.size();
+            for (String contact : events) {
+                eventList += contact;
+                if (i < eventLen) {
+                    eventList += ",";
+                }
+                i++;
+            }
+            eventList += "]";
+            responseMap.put("contact_list", eventList);
+            responseString = gson.toJson(responseMap);
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
 }
