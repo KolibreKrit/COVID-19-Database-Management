@@ -193,7 +193,19 @@ public class API {
         try {
             //generate a response
             Map<String, String> responseMap = new HashMap<>();
-            responseMap.put("contact_list", mrn);
+            ArrayList<String> contacts = Launcher.graphDBEngine.getContacts(mrn);
+            String contactList = "[";
+            int i = 1;
+            int contactLen = contacts.size();
+            for (String contact : contacts) {
+                contactList += contact;
+                if (i < contactLen) {
+                    contactList += ",";
+                }
+                i++;
+            }
+            contactList += "]";
+            responseMap.put("contact_list", contactList);
             responseString = gson.toJson(responseMap);
 
         } catch (Exception ex) {

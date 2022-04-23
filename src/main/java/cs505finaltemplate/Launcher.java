@@ -34,27 +34,27 @@ public class Launcher {
         //READ CLASS COMMENTS BEFORE USING
         graphDBEngine = new GraphDBEngine();
 
-        cepEngine = new CEPEngine();
-
-        System.out.println("Starting CEP...");
-
-        inputStreamName = "testInStream";
-        String inputStreamAttributesString = "zip_code string";
-
-        String outputStreamName = "testOutStream";
-        String outputStreamAttributesString = "zip_code string, count long";
-
-        //This query must be modified.  Currently, it provides the last zip_code and total count
-        //You want counts per zip_code, to say another way "grouped by" zip_code
-        String queryString = " " +
-                "from testInStream#window.timeBatch(5 sec) " +
-                "select zip_code, count() as count " +
-                "group by zip_code " +
-                "insert into testOutStream; ";
-
-        cepEngine.createCEP(inputStreamName, outputStreamName, inputStreamAttributesString, outputStreamAttributesString, queryString);
-
-        System.out.println("CEP Started...");
+//        cepEngine = new CEPEngine();
+//
+//        System.out.println("Starting CEP...");
+//
+//        inputStreamName = "testInStream";
+//        String inputStreamAttributesString = "zip_code string";
+//
+//        String outputStreamName = "testOutStream";
+//        String outputStreamAttributesString = "zip_code string, count long";
+//
+//        //This query must be modified.  Currently, it provides the last zip_code and total count
+//        //You want counts per zip_code, to say another way "grouped by" zip_code
+//        String queryString = " " +
+//                "from testInStream#window.timeBatch(5 sec) " +
+//                "select zip_code, count() as count " +
+//                "group by zip_code " +
+//                "insert into testOutStream; ";
+//
+//        cepEngine.createCEP(inputStreamName, outputStreamName, inputStreamAttributesString, outputStreamAttributesString, queryString);
+//
+//        System.out.println("CEP Started...");
         //end DB/CEP Init
 
         //start message collector

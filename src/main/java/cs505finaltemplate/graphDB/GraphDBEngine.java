@@ -10,8 +10,9 @@ import com.orientechnologies.orient.core.record.OVertex;
 import com.orientechnologies.orient.core.sql.executor.OResult;
 import com.orientechnologies.orient.core.sql.executor.OResultSet;
 
-public class GraphDBEngine {
+import java.util.ArrayList;
 
+public class GraphDBEngine {
 
     public OrientDB orient = new OrientDB("remote:localhost", OrientDBConfig.defaultConfig());
     public ODatabaseSession db = orient.open("test", "root", "rootpwd");
@@ -42,39 +43,42 @@ public class GraphDBEngine {
             db.createEdgeClass("contact_with");
         }
 
+//        OVertex patient_0 = createPatient(db, "mrn_0");
+//        OVertex patient_1 = createPatient(db, "mrn_1");
+//        OVertex patient_2 = createPatient(db, "mrn_2");
+//        OVertex patient_3 = createPatient(db, "mrn_3");
+//
+//        //patient 0 in contact with patient 1
+//        OEdge edge1 = patient_0.addEdge(patient_1, "contact_with");
+//        edge1.save();
+//        //patient 2 in contact with patient 0
+//        OEdge edge2 = patient_2.addEdge(patient_0, "contact_with");
+//        edge2.save();
+//
+//        //you should not see patient_3 when trying to find contacts of patient 0
+//        OEdge edge3 = patient_3.addEdge(patient_2, "contact_with");
+//        edge3.save();
 
-        OVertex patient_0 = createPatient(db, "mrn_0");
-        OVertex patient_1 = createPatient(db, "mrn_1");
-        OVertex patient_2 = createPatient(db, "mrn_2");
-        OVertex patient_3 = createPatient(db, "mrn_3");
+//        getContacts(db, "mrn_0");
 
-        //patient 0 in contact with patient 1
-        OEdge edge1 = patient_0.addEdge(patient_1, "contact_with");
-        edge1.save();
-        //patient 2 in contact with patient 0
-        OEdge edge2 = patient_2.addEdge(patient_0, "contact_with");
-        edge2.save();
-
-        //you should not see patient_3 when trying to find contacts of patient 0
-        OEdge edge3 = patient_3.addEdge(patient_2, "contact_with");
-        edge3.save();
-
-        getContacts(db, "mrn_0");
-
-        db.close();
-        orient.close();
-
+//        db.close();
+//        orient.close();
     }
 
-    private OVertex createPatient(ODatabaseSession db, String patient_mrn) {
+    public void createContact(OVertex patient_1, OVertex patient_2) {
+        OEdge edge = patient_1.addEdge(patient_2, "contact_with");
+        edge.save();
+    }
+    public OVertex createPatient(String patient_mrn) {
         OVertex result = db.newVertex("patient");
         result.setProperty("patient_mrn", patient_mrn);
         result.save();
         return result;
     }
 
-    private void getContacts(ODatabaseSession db, String patient_mrn) {
+    public ArrayList<String> getContacts(String patient_mrn) {
 
+        ArrayList<String> contacts = new ArrayList<>();
         String query = "TRAVERSE inE(), outE(), inV(), outV() " +
                 "FROM (select from patient where patient_mrn = ?) " +
                 "WHILE $depth <= 2";
@@ -82,10 +86,45 @@ public class GraphDBEngine {
 
         while (rs.hasNext()) {
             OResult item = rs.next();
-            System.out.println("contact: " + item.getProperty("patient_mrn"));
+            contacts.add(item.getProperty("patient_mrn"));
+//            System.out.println("contact: " + item.getProperty("patient_mrn"));
         }
-
         rs.close(); //REMEMBER TO ALWAYS CLOSE THE RESULT SET!!!
+        return contacts;
+    }
+
+    public boolean isPatient(String patient_mrn) {
+        String query = "select from patient where patient_mrn = ?";
+        OResultSet rs = db.query(query, patient_mrn);
+
+        while (rs.hasNext()) {
+            OResult item = rs.next();
+            if (OResult.isVertex()) {
+                System.out.println("found patient: " + item.getProperty("patient_mrn"));
+                rs.close();
+                return true;
+            }
+        }
+        rs.close();
+        return false;
+    }
+
+    public OVertex getPatient(String patient_mrn) {
+        String query = "select from patient where patient_mrn = ?";
+        OResultSet rs = db.query(query, patient_mrn);
+
+        Oresult item = null;
+        OVertex patient = null;
+
+        while (rs.hasNext()) {
+            item = rs.next();
+            if (OResult.isVertex()) {
+                patient = item;
+                break;
+            }
+        }
+        rs.close();
+        return item;
     }
 
     private void clearDB(ODatabaseSession db) {
