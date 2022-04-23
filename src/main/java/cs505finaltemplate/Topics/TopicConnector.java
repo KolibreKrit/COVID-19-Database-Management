@@ -117,7 +117,15 @@ public class TopicConnector {
                         }
                     }
                     else {
-                        Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+                        OVertex patient_1 = Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+                        if (testingData.contact_list != null) {
+                            for (String contact : testingData.contact_list) {
+                                if (!Launcher.graphDBEngine.isPatient(contact)) {
+                                    OVertex patient_2 = Launcher.graphDBEngine.createPatient(contact);
+                                    Launcher.graphDBEngine.createContact(patient_1, patient_2);
+                                }
+                            }
+                        }
                     }
                 }
             };

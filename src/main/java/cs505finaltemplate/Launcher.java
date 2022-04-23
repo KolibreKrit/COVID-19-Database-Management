@@ -60,15 +60,15 @@ public class Launcher {
 
         //start message collector
         Map<String,String> message_config = new HashMap<>();
-//        message_config.put("hostname","localhost"); //Fill config for your team in
-//        message_config.put("username","guest");
-//        message_config.put("password","guest");
-//        message_config.put("virtualhost","/");
+        message_config.put("hostname","localhost"); //Fill config for your team in
+        message_config.put("username","guest");
+        message_config.put("password","guest");
+        message_config.put("virtualhost","/");
 
-        message_config.put("hostname","128.163.202.50"); //Fill config for your team in
-        message_config.put("username","student");
-        message_config.put("password","student01");
-        message_config.put("virtualhost","20");
+//        message_config.put("hostname","128.163.202.50"); //Fill config for your team in
+//        message_config.put("username","student");
+//        message_config.put("password","student01");
+//        message_config.put("virtualhost","20");
 
         topicConnector = new TopicConnector(message_config);
         topicConnector.connect();
