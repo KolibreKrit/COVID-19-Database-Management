@@ -130,7 +130,7 @@ public class API {
             if (Launcher.alerts.size() >= 5) {
                 inAlert = 1;
             }
-            responseMap.put("state_status", inAlert);
+            responseMap.put("state_status", String.valueOf(inAlert));
             responseString = gson.toJson(responseMap);
 
         } catch (Exception ex) {
