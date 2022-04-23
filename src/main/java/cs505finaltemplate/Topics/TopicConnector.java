@@ -104,18 +104,19 @@ public class TopicConnector {
                     System.out.println("\tcontact_list = " + testingData.contact_list);
                     System.out.println("\tevent_list = " + testingData.event_list);
                      */
-                    if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
-                        OVertex patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
-                        for (String contact : testingData.contact_list) {
-                            if (!Launcher.graphDBEngine.isPatient(contact)) {
-                                OVertex patient_2 = Launcher.graphDBEngine.createPatient(contact);
-                                Launcher.graphDBEngine.createContact(patient_1, patient_2);
-                            }
-                        }
-                    }
-                    else {
-                        Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
-                    }
+                    Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+//                    if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
+//                        OVertex patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
+//                        for (String contact : testingData.contact_list) {
+//                            if (!Launcher.graphDBEngine.isPatient(contact)) {
+//                                OVertex patient_2 = Launcher.graphDBEngine.createPatient(contact);
+//                                Launcher.graphDBEngine.createContact(patient_1, patient_2);
+//                            }
+//                        }
+//                    }
+//                    else {
+//                        Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
+//                    }
                 }
             };
 
