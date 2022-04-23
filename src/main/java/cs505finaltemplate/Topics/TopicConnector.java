@@ -73,7 +73,7 @@ public class TopicConnector {
             System.out.println(" [*] Paitent List Waiting for messages. To exit press CTRL+C");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-                GraphDBEngine graphDBEngine = new GraphDBEngine();
+                Launcher.graphDBEngine.db.activateOnCurrentThread();
 
                 String message = new String(delivery.getBody(), "UTF-8");
 
