@@ -98,8 +98,14 @@ public class API {
             //generate a response
             Map<String,String> responseMap = new HashMap<>();
             String zipList = "[";
+            int i = 1;
+            int alertLen = Launcher.alerts.size();
             for (String zipCode : Launcher.alerts) {
                 zipList += zipCode;
+                if (i < alertLen) {
+                    zipList += ",";
+                }
+                i++;
             }
             zipList += "]";
             responseMap.put("ziplist", zipList);
