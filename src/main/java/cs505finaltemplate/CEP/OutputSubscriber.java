@@ -59,6 +59,7 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
                     Launcher.alerts.add(element.getKey());
                 }
             }
+            Launcher.CEPList = tempList;
 
         } catch(Exception ex) {
             ex.printStackTrace();
