@@ -34,8 +34,6 @@ public class API {
         gson = new Gson();
     }
 
-    final Type typeOfListMap = new TypeToken<List<Map<String,String>>>(){}.getType();
-
 
     @GET
     @Path("/getteam")
