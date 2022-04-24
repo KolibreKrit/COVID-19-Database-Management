@@ -226,9 +226,6 @@ public class EmbeddedDBEngine {
         Map<String,String> accessMap = new HashMap<>();
         try {
             Type type = new TypeToken<Map<String, String>>(){}.getType();
-            Double in_patient_count;
-            Double icu_patient_count;
-            Double patient_vent_count;
 
             String queryString = null;
 
@@ -265,6 +262,75 @@ public class EmbeddedDBEngine {
             queryString = "SELECT patient_status, COUNT(patient_mrn) as vax_count " +
                           "FROM hospitals WHERE hospital_id = '" + hospital_id +
                           "' AND vax_status = 1 GROUP BY patient_status ORDER BY patient_status ASC";
+
+            try(Connection conn = ds.getConnection()) {
+                try (Statement stmt = conn.createStatement()) {
+
+                    try(ResultSet rs = stmt.executeQuery(queryString)) {
+
+                        while (rs.next()) {
+                            if (rs.getString("patient_status").equals("1")) {
+                                accessMap.put("in-patient_vax", rs.getString("vax_count"));
+                            }
+                            else if (rs.getString("patient_status").equals("2")) {
+                                accessMap.put("icu-patient_vax", rs.getString("vax_count"));
+                            }
+                            else {
+                                accessMap.put("patient_vent_vax", rs.getString("vax_count"));
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return accessMap;
+    }
+
+    public Map<String,String> getHospitals() {
+        Map<String,String> accessMap = new HashMap<>();
+        try {
+            Type type = new TypeToken<Map<String, String>>(){}.getType();
+
+            String queryString = null;
+
+            //fill in the query
+            queryString = "SELECT patient_status, COUNT(patient_mrn) as status_count " +
+                    "FROM hospitals " +
+                    "GROUP BY patient_status ORDER BY patient_status ASC";
+
+            try(Connection conn = ds.getConnection()) {
+                try (Statement stmt = conn.createStatement()) {
+
+                    try(ResultSet rs = stmt.executeQuery(queryString)) {
+
+                        while (rs.next()) {
+                            if (rs.getString("patient_status").equals("1")) {
+                                in_patient_count = Double.parseDouble(rs.getString("status_count"));
+                                accessMap.put("in-patient_count", rs.getString("status_count"));
+                            }
+                            else if (rs.getString("patient_status").equals("2")) {
+                                icu_patient_count = Double.parseDouble(rs.getString("status_count"));
+                                accessMap.put("icu-patient_count", rs.getString("status_count"));
+                            }
+                            else {
+                                patient_vent_count = Double.parseDouble(rs.getString("status_count"));
+                                accessMap.put("patient_vent_count", rs.getString("status_count"));
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            //another query
+            queryString = "SELECT patient_status, COUNT(patient_mrn) as vax_count " +
+                    "FROM hospitals WHERE vax_status = 1 " +
+                    "GROUP BY patient_status ORDER BY patient_status ASC";
 
             try(Connection conn = ds.getConnection()) {
                 try (Statement stmt = conn.createStatement()) {

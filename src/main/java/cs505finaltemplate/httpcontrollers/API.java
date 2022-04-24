@@ -45,7 +45,7 @@ public class API {
             Map<String,String> responseMap = new HashMap<>();
             if(Launcher.cepEngine != null) {
 
-                responseMap.put("app_status_code","0");
+                responseMap.put("app_status_code","1");
                 responseMap.put("Team_members_sids", "[91222301]");
                 responseMap.put("team_name", "Oceans");
 
@@ -290,6 +290,85 @@ public class API {
             Map<String, String> responseMap = new HashMap<>();
 
             Map<String, String> patientList = Launcher.embedded.getHospital(hospital_id);
+
+            Integer in_patient_count = 100;
+            if (patientList.get("in-patient_count") == null) {
+                responseMap.put("in-patient_count", "0");
+            }
+            else {
+                in_patient_count = Integer.valueOf(patientList.get("in-patient_count"));
+                responseMap.put("in-patient_count", in_patient_count.toString());
+            }
+            Double in_patient_vax;
+            if (patientList.get("in-patient_vax") == null) {
+                responseMap.put("in-patient_vax", "0");
+            }
+            else {
+                in_patient_vax = Double.parseDouble(patientList.get("in-patient_vax"));
+                in_patient_vax = in_patient_vax / in_patient_count.doubleValue();
+                responseMap.put("in-patient_vax", in_patient_vax.toString());
+            }
+
+            Integer icu_patient_count = 100;
+            if (patientList.get("icu-patient_count") == null) {
+                responseMap.put("icu-patient_count", "0");
+            }
+            else {
+                icu_patient_count = Integer.valueOf(patientList.get("icu-patient_count"));
+                responseMap.put("icu-patient_count", icu_patient_count.toString());
+            }
+            Double icu_patient_vax;
+            if (patientList.get("icu-patient_vax") == null) {
+                responseMap.put("icu-patient_vax", "0");
+            }
+            else {
+                icu_patient_vax = Double.parseDouble(patientList.get("icu-patient_vax"));
+                icu_patient_vax = icu_patient_vax / icu_patient_count.doubleValue();
+                responseMap.put("icu-patient_vax", icu_patient_vax.toString());
+            }
+
+            Integer patient_vent_count = 100;
+            if (patientList.get("patient_vent_count") == null) {
+                responseMap.put("patient_vent_count", "0");
+            }
+            else {
+                patient_vent_count = Integer.valueOf(patientList.get("patient_vent_count"));
+                responseMap.put("patient_vent_count", patient_vent_count.toString());
+            }
+            Double patient_vent_vax;
+            if (patientList.get("patient_vent_vax") == null) {
+                responseMap.put("patient_vent_vax", "0");
+            }
+            else {
+                patient_vent_vax = Double.parseDouble(patientList.get("patient_vent_vax"));
+                patient_vent_vax = patient_vent_vax / patient_vent_count.doubleValue();
+                responseMap.put("patient_vent_vax", patient_vent_vax.toString());
+            }
+
+            responseString = gson.toJson(responseMap);
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/getpatientstatus")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPatientStatusAll(@HeaderParam("X-Auth-API-Key") String authKey) {
+        String responseString = "{}";
+        try {
+            //generate a response
+            Map<String, String> responseMap = new HashMap<>();
+
+            Map<String, String> patientList = Launcher.embedded.getHospitals();
 
             Integer in_patient_count = 100;
             if (patientList.get("in-patient_count") == null) {
