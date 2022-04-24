@@ -440,7 +440,7 @@ public class API {
     @GET
     @Path("/ispatient/{mrn}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isPatient(@HeaderParam("X-Auth-API-Key") String authKey, @PathParam String mrn) {
+    public Response isPatient(@HeaderParam("X-Auth-API-Key") String authKey, @PathParam("mrn") String mrn) {
         String responseString = "{}";
         try {
             //generate a response
