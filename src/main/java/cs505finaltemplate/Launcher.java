@@ -31,15 +31,15 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
 
 
-        //startig DB/CEP init
+        //starting DB/CEP init
         System.out.println("Starting Embedded Database...");
         //Embedded database initialization
         embedded = new EmbeddedDBEngine();
         System.out.println("Embedded Database Started...");
 
         //READ CLASS COMMENTS BEFORE USING
-        graphDBEngine = new GraphDBEngine();
-        graphDBEngine.clearDB();
+//        graphDBEngine = new GraphDBEngine();
+//        graphDBEngine.clearDB();
 
 //        cepEngine = new CEPEngine();
 //

@@ -232,7 +232,7 @@ public class EmbeddedDBEngine {
 
             //fill in the query
             queryString = "SELECT patient_status, COUNT(hospital_id) as status_count " +
-                          "FROM hospital WHERE hospital_id = '" + hospital_id +
+                          "FROM hospitals WHERE hospital_id = '" + hospital_id +
                           "' GROUP BY patient_status ORDER BY patient_status ASC";
 
             try(Connection conn = ds.getConnection()) {
@@ -258,7 +258,7 @@ public class EmbeddedDBEngine {
 
             //another query
             queryString = "SELECT patient_status, COUNT(hospital_id) as vax_count " +
-                          "FROM hospital WHERE hospital_id = '" + hospital_id +
+                          "FROM hospitals WHERE hospital_id = '" + hospital_id +
                           "' AND vax_status = 1 GROUP BY patient_status ORDER BY patient_status ASC";
 
             try(Connection conn = ds.getConnection()) {
