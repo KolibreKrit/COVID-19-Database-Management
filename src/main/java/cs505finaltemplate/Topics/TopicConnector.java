@@ -167,7 +167,7 @@ public class TopicConnector {
                     //look up data
                     if (Launcher.embedded.isPatient(patient_mrn)) {
                         //update data
-                        String updateQuery = "UPDATE hospitals SET patient_status = " + patient_status + " WHERE patient_mrn = '" + patient_mrn + "'";
+                        String updateQuery = "UPDATE hospitals SET patient_status = " + patient_status + ", hospital_id = '" + hospital_id + "' WHERE patient_mrn = '" + patient_mrn + "'";
                         Launcher.embedded.executeUpdate(updateQuery);
 
                     }
@@ -177,7 +177,6 @@ public class TopicConnector {
                         Launcher.embedded.executeUpdate(insertQuery);
                     }
                 }
-
             };
 
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
@@ -223,7 +222,7 @@ public class TopicConnector {
                     }
                     else {
                         //insert data
-                        String insertQuery = "INSERT INTO hospitals VALUES ('" + vaccination_id + "','" + patient_mrn + "',NULL," + 1 + ")";
+                        String insertQuery = "INSERT INTO hospitals VALUES (NULL,'" + patient_mrn + "',NULL," + 1 + ")";
                         Launcher.embedded.executeUpdate(insertQuery);
                     }
                 }
