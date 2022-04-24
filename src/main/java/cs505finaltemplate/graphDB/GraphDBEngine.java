@@ -107,6 +107,23 @@ public class GraphDBEngine {
         rs.close(); //REMEMBER TO ALWAYS CLOSE THE RESULT SET!!!
         return events;
     }
+
+    public ArrayList<String> getAttendees(String event_id) {
+        ArrayList<String> events = new ArrayList<>();
+        String query = "TRAVERSE inE(), outE(), inV(), outV() " +
+                "FROM (select from event where event_id = ?) " +
+                "WHILE $depth <= 2";
+        OResultSet rs = db.query(query, event_id);
+
+        while (rs.hasNext()) {
+            OResult item = rs.next();
+            if (item.getProperty("patient_mrn") != null) {
+                events.add(item.getProperty("patient_mrn"));
+            }
+        }
+        rs.close(); //REMEMBER TO ALWAYS CLOSE THE RESULT SET!!!
+        return events;
+    }
     public void createContact(OVertex patient_1, OVertex patient_2) {
         OEdge edge = patient_1.addEdge(patient_2, "contact_with");
         edge.save();

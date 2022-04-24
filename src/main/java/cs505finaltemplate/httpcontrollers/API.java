@@ -201,9 +201,11 @@ public class API {
             int i = 1;
             int contactLen = contacts.size();
             for (String contact : contacts) {
-                contactList += contact;
-                if (i < contactLen) {
-                    contactList += ",";
+                if (!mrn.equals(contact)) {
+                    contactList += contact;
+                    if (i < contactLen) {
+                        contactList += ",";
+                    }
                 }
                 i++;
             }
@@ -236,8 +238,21 @@ public class API {
             String eventList = "[";
             int i = 1;
             int eventLen = events.size();
-            for (String contact : events) {
-                eventList += contact;
+            for (String event : events) {
+                ArrayList<String> attendees = Launcher.graphDBEngine.getAttendees(event);
+                eventList += event + ":[";
+                int j = 1;
+                int attendLen = attendees.size();
+                for (String attendee : attendees) {
+                    if (!mrn.equals(attendee)) {
+                        eventList += attendee;
+                        if (j < attendLen) {
+                            eventList += ",";
+                        }
+                    }
+                    j++;
+                }
+                eventList += "]";
                 if (i < eventLen) {
                     eventList += ",";
                 }
