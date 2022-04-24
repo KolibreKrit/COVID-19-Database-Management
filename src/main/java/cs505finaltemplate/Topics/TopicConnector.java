@@ -164,6 +164,8 @@ public class TopicConnector {
                     String patient_mrn = hospitalData.get("patient_mrn");
                     int patient_status = Integer.parseInt(hospitalData.get("patient_status"));
                     //do something with each each record.
+                    //look up data
+
                     //insert data
                     String insertQuery = "INSERT INTO hospitals VALUES ('" + hospital_id + "','" + patient_mrn + "'," + patient_status + "," + 0 + ")";
                     Launcher.embedded.executeUpdate(insertQuery);

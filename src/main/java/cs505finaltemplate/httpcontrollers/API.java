@@ -436,4 +436,34 @@ public class API {
         }
         return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
     }
+
+    @GET
+    @Path("/ispatient/{mrn}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response isPatient(@HeaderParam("X-Auth-API-Key") String authKey, @PathParam String mrn) {
+        String responseString = "{}";
+        try {
+            //generate a response
+            Map<String, String> responseMap = new HashMap<>();
+
+            if (Launcher.embedded.isPatient(mrn)) {
+                responseMap.put("isPatient", "1");
+            }
+            else {
+                responseMap.put("isPatient", "0");
+            }
+
+            responseString = gson.toJson(responseMap);
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
 }

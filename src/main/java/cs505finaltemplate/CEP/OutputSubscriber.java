@@ -55,7 +55,7 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
                 if (prevCount == null) {
                     Launcher.alerts.add(element.getKey());
                 }
-                else if (element.getValue() > prevCount) {
+                else if (element.getValue() >= prevCount*2) {
                     Launcher.alerts.add(element.getKey());
                 }
             }

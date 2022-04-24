@@ -245,7 +245,7 @@ public class EmbeddedDBEngine {
                             else if (rs.getString("patient_status").equals("2")) {
                                 accessMap.put("icu-patient_count", rs.getString("status_count"));
                             }
-                            else {
+                            else if (rs.getString("patient_status").equals("3")){
                                 accessMap.put("patient_vent_count", rs.getString("status_count"));
                             }
                         }
@@ -271,7 +271,7 @@ public class EmbeddedDBEngine {
                             else if (rs.getString("patient_status").equals("2")) {
                                 accessMap.put("icu-patient_vax", rs.getString("vax_count"));
                             }
-                            else {
+                            else if (rs.getString("patient_status").equals("3")) {
                                 accessMap.put("patient_vent_vax", rs.getString("vax_count"));
                             }
                         }
@@ -287,6 +287,34 @@ public class EmbeddedDBEngine {
         return accessMap;
     }
 
+    public boolean isPatient(String patient_mrn) {
+        try {
+
+            String queryString = null;
+
+            //fill in the query
+            queryString = "SELECT patient_mrn " +
+                    "FROM hospitals " +
+                    "WHERE patient_mrn = '" + patient_mrn + "'";
+
+            try(Connection conn = ds.getConnection()) {
+                try (Statement stmt = conn.createStatement()) {
+
+                    try(ResultSet rs = stmt.executeQuery(queryString)) {
+
+                        while (rs.next()) {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
     public Map<String,String> getHospitals() {
         Map<String,String> accessMap = new HashMap<>();
         try {
@@ -310,7 +338,7 @@ public class EmbeddedDBEngine {
                             else if (rs.getString("patient_status").equals("2")) {
                                 accessMap.put("icu-patient_count", rs.getString("status_count"));
                             }
-                            else {
+                            else if (rs.getString("patient_status").equals("3")) {
                                 accessMap.put("patient_vent_count", rs.getString("status_count"));
                             }
                         }
@@ -336,7 +364,7 @@ public class EmbeddedDBEngine {
                             else if (rs.getString("patient_status").equals("2")) {
                                 accessMap.put("icu-patient_vax", rs.getString("vax_count"));
                             }
-                            else {
+                            else if (rs.getString("patient_status").equals("3")) {
                                 accessMap.put("patient_vent_vax", rs.getString("vax_count"));
                             }
                         }
