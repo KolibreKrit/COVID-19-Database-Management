@@ -3,6 +3,7 @@ package cs505finaltemplate;
 import cs505finaltemplate.CEP.CEPEngine;
 import cs505finaltemplate.Topics.TopicConnector;
 import cs505finaltemplate.Topics.ZipInfo;
+import cs505finaltemplate.embeddedDB.EmbeddedDBEngine;
 import cs505finaltemplate.graphDB.GraphDBEngine;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -17,6 +18,7 @@ import java.util.*;
 public class Launcher {
 
     public static GraphDBEngine graphDBEngine;
+    public static EmbeddedDBEngine embedded;
     public static String inputStreamName;
     public static CEPEngine cepEngine;
     public static TopicConnector topicConnector;
@@ -30,6 +32,10 @@ public class Launcher {
 
 
         //startig DB/CEP init
+        System.out.println("Starting Embedded Database...");
+        //Embedded database initialization
+        embedded = new EmbeddedDBEngine();
+        System.out.println("Embedded Database Started...");
 
         //READ CLASS COMMENTS BEFORE USING
         graphDBEngine = new GraphDBEngine();

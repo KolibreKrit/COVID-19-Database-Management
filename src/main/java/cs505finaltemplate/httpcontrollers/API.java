@@ -82,6 +82,10 @@ public class API {
             if (Launcher.graphDBEngine != null) {
                 Launcher.graphDBEngine.clearDB();
             }
+            if (Launcher.embedded != null) {
+                Launcher.embedded.dropTable("hospitals");
+                Launcher.embedded.initDB();
+            }
             responseMap.put("reset_status_code", String.valueOf(success));
 
             responseString = gson.toJson(responseMap);
@@ -261,6 +265,31 @@ public class API {
             eventList += "]";
             responseMap.put("contact_list", eventList);
             responseString = gson.toJson(responseMap);
+
+        } catch (Exception ex) {
+
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            ex.printStackTrace();
+
+            return Response.status(500).entity(exceptionAsString).build();
+        }
+        return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/getpatientstatus/{hospital_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPatientStatus(@HeaderParam("X-Auth-API-Key") String authKey, @PathParam("hospital_id") String hospital_id) {
+        String responseString = "{}";
+        try {
+            //generate a response
+            Map<String, String> responseMap = new HashMap<>();
+
+            Map<String, String> patientList = Launcher.embedded.getHospital(hospital_id);
+            responseMap.put("contact_list", eventList);
+            responseString = gson.toJson(patientList);
 
         } catch (Exception ex) {
 

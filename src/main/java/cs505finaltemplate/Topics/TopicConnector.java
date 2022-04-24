@@ -175,6 +175,9 @@ public class TopicConnector {
                     String patient_mrn = hospitalData.get("patient_mrn");
                     int patient_status = Integer.parseInt(hospitalData.get("patient_status"));
                     //do something with each each record.
+                    //insert data
+                    String insertQuery = "INSERT INTO hospitals VALUES ('" + hospital_id + "','" + patient_mrn + "'," + patient_status + "," + 0 + ")";
+                    Launcher.embedded.executeUpdate(insertQuery);
                 }
 
             };
@@ -214,6 +217,8 @@ public class TopicConnector {
                     String patient_name = vaxData.get("patient_name");
                     String patient_mrn = vaxData.get("patient_mrn");
                     //do something with each each record.
+                    String updateQuery = "UPDATE hospitals SET vax_status = 1 WHERE patient_mrn = '" + patient_mrn + "'";
+                    Launcher.embedded.executeUpdate(updateQuery);
                 }
 
             };
