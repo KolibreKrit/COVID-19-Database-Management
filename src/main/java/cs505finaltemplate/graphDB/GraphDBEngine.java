@@ -16,7 +16,6 @@ public class GraphDBEngine {
 
     public static OrientDB orient = new OrientDB("remote:localhost", OrientDBConfig.defaultConfig());
     public static ODatabaseSession db = orient.open("test", "root", "rootpwd");
-    //!!! CODE HERE IS FOR EXAMPLE ONLY, YOU MUST CHECK AND MODIFY!!!
     public GraphDBEngine() {
 
         //launch a docker container for orientdb, don't expect your data to be saved unless you configure a volume
@@ -56,24 +55,6 @@ public class GraphDBEngine {
         if (db.getClass("attend") == null) {
             db.createEdgeClass("attend");
         }
-
-//        OVertex patient_0 = createPatient("mrn_0");
-//        OVertex patient_1 = createPatient("mrn_1");
-//        OVertex patient_2 = createPatient("mrn_2");
-//        OVertex patient_3 = createPatient("mrn_3");
-//
-//        //patient 0 in contact with patient 1
-//        OEdge edge1 = patient_0.addEdge(patient_1, "contact_with");
-//        edge1.save();
-//        //patient 2 in contact with patient 0
-//        OEdge edge2 = patient_2.addEdge(patient_0, "contact_with");
-//        edge2.save();
-//
-//        //you should not see patient_3 when trying to find contacts of patient 0
-//        OEdge edge3 = patient_3.addEdge(patient_2, "contact_with");
-//        edge3.save();
-//
-//        getContacts("mrn_0");
 
 //        db.close();
 //        orient.close();

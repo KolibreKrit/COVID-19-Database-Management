@@ -352,41 +352,5 @@ public class EmbeddedDBEngine {
         return accessMap;
     }
 
-    public List<Map<String,String>> getAccessLogs() {
-        List<Map<String,String>> accessMapList = null;
-        try {
-
-            accessMapList = new ArrayList<>();
-
-            Type type = new TypeToken<Map<String, String>>(){}.getType();
-
-            String queryString = null;
-
-            //fill in the query
-            queryString = "SELECT * FROM accesslog";
-
-            try(Connection conn = ds.getConnection()) {
-                try (Statement stmt = conn.createStatement()) {
-
-                    try(ResultSet rs = stmt.executeQuery(queryString)) {
-
-                        while (rs.next()) {
-                            Map<String, String> accessMap = new HashMap<>();
-                            accessMap.put("remote_ip", rs.getString("remote_ip"));
-                            accessMap.put("access_ts", rs.getString("access_ts"));
-                            accessMapList.add(accessMap);
-                        }
-
-                    }
-                }
-            }
-
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return accessMapList;
-    }
-
 }
 

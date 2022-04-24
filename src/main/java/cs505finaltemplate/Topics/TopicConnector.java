@@ -70,7 +70,7 @@ public class TopicConnector {
             channel.queueBind(queueName, topicName, "#");
 
 
-            System.out.println(" [*] Paitent List Waiting for messages. To exit press CTRL+C");
+            System.out.println(" [*] Patient List Waiting for messages. To exit press CTRL+C");
 
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 Launcher.graphDBEngine.db.activateOnCurrentThread();
@@ -94,17 +94,6 @@ public class TopicConnector {
                     Launcher.cepEngine.input("testInStream",testInput);
 
                     //do something else with each record
-                    /*
-                    System.out.println("*Java Class*");
-                    System.out.println("\ttesting_id = " + testingData.testing_id);
-                    System.out.println("\tpatient_name = " + testingData.patient_name);
-                    System.out.println("\tpatient_mrn = " + testingData.patient_mrn);
-                    System.out.println("\tpatient_zipcode = " + testingData.patient_zipcode);
-                    System.out.println("\tpatient_status = " + testingData.patient_status);
-                    System.out.println("\tcontact_list = " + testingData.contact_list);
-                    System.out.println("\tevent_list = " + testingData.event_list);
-                     */
-//                    Launcher.graphDBEngine.createPatient(testingData.patient_mrn);
                     OVertex patient_1;
                     if (Launcher.graphDBEngine.isPatient(testingData.patient_mrn)) {
                         patient_1 = Launcher.graphDBEngine.getPatient(testingData.patient_mrn);
