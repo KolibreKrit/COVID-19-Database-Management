@@ -225,7 +225,6 @@ public class EmbeddedDBEngine {
     public Map<String,String> getHospital(String hospital_id) {
         Map<String,String> accessMap = new HashMap<>();
         try {
-            Type type = new TypeToken<Map<String, String>>(){}.getType();
 
             String queryString = null;
 
@@ -241,15 +240,12 @@ public class EmbeddedDBEngine {
 
                         while (rs.next()) {
                             if (rs.getString("patient_status").equals("1")) {
-                                in_patient_count = Double.parseDouble(rs.getString("status_count"));
                                 accessMap.put("in-patient_count", rs.getString("status_count"));
                             }
                             else if (rs.getString("patient_status").equals("2")) {
-                                icu_patient_count = Double.parseDouble(rs.getString("status_count"));
                                 accessMap.put("icu-patient_count", rs.getString("status_count"));
                             }
                             else {
-                                patient_vent_count = Double.parseDouble(rs.getString("status_count"));
                                 accessMap.put("patient_vent_count", rs.getString("status_count"));
                             }
                         }
@@ -294,7 +290,6 @@ public class EmbeddedDBEngine {
     public Map<String,String> getHospitals() {
         Map<String,String> accessMap = new HashMap<>();
         try {
-            Type type = new TypeToken<Map<String, String>>(){}.getType();
 
             String queryString = null;
 
@@ -310,15 +305,12 @@ public class EmbeddedDBEngine {
 
                         while (rs.next()) {
                             if (rs.getString("patient_status").equals("1")) {
-                                in_patient_count = Double.parseDouble(rs.getString("status_count"));
                                 accessMap.put("in-patient_count", rs.getString("status_count"));
                             }
                             else if (rs.getString("patient_status").equals("2")) {
-                                icu_patient_count = Double.parseDouble(rs.getString("status_count"));
                                 accessMap.put("icu-patient_count", rs.getString("status_count"));
                             }
                             else {
-                                patient_vent_count = Double.parseDouble(rs.getString("status_count"));
                                 accessMap.put("patient_vent_count", rs.getString("status_count"));
                             }
                         }
