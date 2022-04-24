@@ -14,8 +14,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.orientechnologies.orient.core.db.ODatabaseSession;
 import com.orientechnologies.orient.core.db.OrientDB;
@@ -31,6 +33,8 @@ public class API {
     public API() {
         gson = new Gson();
     }
+
+    final Type typeOfListMap = new TypeToken<List<Map<String,String>>>(){}.getType();
 
 
     @GET
@@ -288,7 +292,56 @@ public class API {
             Map<String, String> responseMap = new HashMap<>();
 
             Map<String, String> patientList = Launcher.embedded.getHospital(hospital_id);
-            responseString = gson.toJson(patientList);
+
+            Integer in_patient_count = Integer.valueOf(patientList.get("in-patient_count"));
+            if (in_patient_count == null) {
+                responseMap.put("in-patient_count", "0");
+            }
+            else {
+                responseMap.put("in-patient_count", in_patient_count.toString());
+            }
+            Double in_patient_vax = Double.parseDouble(patientList.get("in-patient_vax"));
+            if (in_patient_vax == null) {
+                responseMap.put("in-patient_vax", "0");
+            }
+            else {
+                in_patient_vax = in_patient_vax / in_patient_count.doubleValue();
+                responseMap.put("in-patient_vax", in_patient_vax.toString());
+            }
+
+            Integer icu_patient_count = Integer.valueOf(patientList.get("icu-patient_count"));
+            if (icu_patient_count == null) {
+                responseMap.put("icu-patient_count", "0");
+            }
+            else {
+                responseMap.put("icu-patient_count", icu_patient_count.toString());
+            }
+            Double icu_patient_vax = Double.parseDouble(patientList.get("icu-patient_vax"));
+            if (icu_patient_vax == null) {
+                responseMap.put("icu-patient_vax", "0");
+            }
+            else {
+                icu_patient_vax = icu_patient_vax / icu_patient_count.doubleValue();
+                responseMap.put("icu-patient_vax", icu_patient_vax.toString());
+            }
+
+            Integer patient_vent_count = Integer.valueOf(patientList.get("patient_vent_count"));
+            if (patient_vent_count == null) {
+                responseMap.put("patient_vent_count", "0");
+            }
+            else {
+                responseMap.put("patient_vent_count", patient_vent_count.toString());
+            }
+            Double patient_vent_vax = Double.parseDouble(patientList.get("patient_vent_vax"));
+            if (patient_vent_vax== null) {
+                responseMap.put("patient_vent_vax", "0");
+            }
+            else {
+                patient_vent_vax = patient_vent_vax / patient_vent_count.doubleValue();
+                responseMap.put("patient_vent_vax", patient_vent_vax.toString());
+            }
+
+            responseString = gson.toJson(responseMap);
 
         } catch (Exception ex) {
 
