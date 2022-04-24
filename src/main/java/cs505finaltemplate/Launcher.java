@@ -84,7 +84,7 @@ public class Launcher {
 
         try {
             while (true) {
-                Thread.sleep(5000);
+                Thread.sleep(15000);
             }
         }catch (Exception ex) {
             ex.printStackTrace();
