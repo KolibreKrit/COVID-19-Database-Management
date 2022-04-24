@@ -298,7 +298,7 @@ public class API {
             else {
                 responseMap.put("in-patient_count", in_patient_count.toString());
             }
-            Double in_patient_vax = Double.parseDouble(patientList.get("in-patient_vax"));
+            Double in_patient_vax = Double.valueOf(patientList.get("in-patient_vax"));
             if (in_patient_vax == null) {
                 responseMap.put("in-patient_vax", "0");
             }
@@ -314,7 +314,7 @@ public class API {
             else {
                 responseMap.put("icu-patient_count", icu_patient_count.toString());
             }
-            Double icu_patient_vax = Double.parseDouble(patientList.get("icu-patient_vax"));
+            Double icu_patient_vax = Double.valueOf(patientList.get("icu-patient_vax"));
             if (icu_patient_vax == null) {
                 responseMap.put("icu-patient_vax", "0");
             }
@@ -330,7 +330,7 @@ public class API {
             else {
                 responseMap.put("patient_vent_count", patient_vent_count.toString());
             }
-            Double patient_vent_vax = Double.parseDouble(patientList.get("patient_vent_vax"));
+            Double patient_vent_vax = Double.valueOf(patientList.get("patient_vent_vax"));
             if (patient_vent_vax== null) {
                 responseMap.put("patient_vent_vax", "0");
             }
