@@ -288,7 +288,6 @@ public class API {
             Map<String, String> responseMap = new HashMap<>();
 
             Map<String, String> patientList = Launcher.embedded.getHospital(hospital_id);
-            responseMap.put("contact_list", eventList);
             responseString = gson.toJson(patientList);
 
         } catch (Exception ex) {
