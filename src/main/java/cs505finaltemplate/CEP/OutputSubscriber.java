@@ -52,11 +52,10 @@ public class OutputSubscriber implements InMemoryBroker.Subscriber {
             Launcher.alerts = new ArrayList<>();
             for (Map.Entry<String, Integer> element : tempList.entrySet()) {
                 Integer prevCount = Launcher.CEPList.get(element.getKey());
-                if (prevCount == null) {
-                    Launcher.alerts.add(element.getKey());
-                }
-                else if (element.getValue() >= prevCount*2) {
-                    Launcher.alerts.add(element.getKey());
+                if (prevCount != null) {
+                    if (element.getValue() >= prevCount*2) {
+                        Launcher.alerts.add(element.getKey());
+                    }
                 }
             }
             Launcher.CEPList = tempList;
