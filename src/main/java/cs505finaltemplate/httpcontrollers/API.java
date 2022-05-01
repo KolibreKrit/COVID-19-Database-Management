@@ -215,7 +215,7 @@ public class API {
                 i++;
             }
             contactList += "]";
-            responseMap.put("contact_list", contactList);
+            responseMap.put("contactlist", contactList);
             responseString = gson.toJson(responseMap);
 
         } catch (Exception ex) {
@@ -264,7 +264,7 @@ public class API {
                 i++;
             }
             eventList += "]";
-            responseMap.put("contact_list", eventList);
+            responseMap.put("contactlist", eventList);
             responseString = gson.toJson(responseMap);
 
         } catch (Exception ex) {
