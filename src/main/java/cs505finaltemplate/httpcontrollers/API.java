@@ -80,17 +80,15 @@ public class API {
             Map<String,String> responseMap = new HashMap<>();
             Launcher.alerts = new ArrayList<>();
             Launcher.CEPList = new HashMap<>();
-            if (Launcher.graphDBEngine != null) {
-                Launcher.graphDBEngine.clearDB();
-            }
             if (Launcher.embedded != null) {
                 Launcher.embedded.dropTable("hospitals");
                 Launcher.embedded.initDB();
             }
             responseMap.put("reset_status_code", String.valueOf(success));
-
             responseString = gson.toJson(responseMap);
-
+            if (Launcher.graphDBEngine != null) {
+                Launcher.graphDBEngine.clearDB();
+            }
 
         } catch (Exception ex) {
 
@@ -99,7 +97,7 @@ public class API {
             String exceptionAsString = sw.toString();
             ex.printStackTrace();
 
-            return Response.status(500).entity(exceptionAsString).build();
+            return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
         }
         return Response.ok(responseString).header("Access-Control-Allow-Origin", "*").build();
     }
