@@ -80,12 +80,12 @@ public class API {
             Map<String,String> responseMap = new HashMap<>();
             Launcher.alerts = new ArrayList<>();
             Launcher.CEPList = new HashMap<>();
+            responseMap.put("reset_status_code", String.valueOf(success));
+            responseString = gson.toJson(responseMap);
             if (Launcher.embedded != null) {
                 Launcher.embedded.dropTable("hospitals");
                 Launcher.embedded.initDB();
             }
-            responseMap.put("reset_status_code", String.valueOf(success));
-            responseString = gson.toJson(responseMap);
             if (Launcher.graphDBEngine != null) {
                 Launcher.graphDBEngine.clearDB();
             }
